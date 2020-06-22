@@ -1,7 +1,6 @@
 import React from 'react';
 import logoSvg from './assets/img/pizza-logo.svg';
 import Button from './Button'
-
 function Header() {
   return (
     <div className="header">
