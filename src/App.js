@@ -7,9 +7,9 @@ function App() {
   return (
     <div className="wrapper">
       <Header/>
-      {/* <Button  >Кнопка</Button> */}
-      {/* <Button outline>Кнопка</Button>
-      <Button test>Кнопка 2</Button> */}
+      <Button outline >Outline</Button>
+      <Button  > Not Outline</Button>
+
       <div className="content">
         <div className="container">
           <div className="content__top">
