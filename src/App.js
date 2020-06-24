@@ -8,7 +8,7 @@ function App() {
       <div className="content">
         <div className="container">
           <div className="content__top">
-            <Categories items={[ 'Вегетарианские','Мясные','Сырные','Диетические']} />
+            <Categories items={[ 'Фирменные','Мясные','Сырные','Диетические']} />
             <div className="sort">
               <div className="sort__label">
                 <svg
