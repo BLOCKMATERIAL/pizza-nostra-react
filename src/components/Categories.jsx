@@ -8,6 +8,8 @@ function Categories({ items, onClickItem }) {
     setActiveItem(index)
   };
 
+  
+
   return (
     <div className="categories">
       <ul>
