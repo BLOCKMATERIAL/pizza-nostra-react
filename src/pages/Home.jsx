@@ -1,10 +1,13 @@
 import React from 'react'
-import { useSelector,useDispatch } from 'react-redux';
-import {Categories,SortPopup, PizzaBlock} from '../components';
-import {setCategory} from '../redux/actions/filters';
+import { useSelector, useDispatch } from 'react-redux';
+import { Categories, SortPopup, PizzaBlock,PizzaLoadingBlock } from '../components';
+import { setCategory } from '../redux/actions/filters';
+import {fetchPizzas,setPizzas} from '../redux/actions/pizzas';
 
 
-const categoryName = [ 'Фирменные','Мясные','Сырные','Диетические'];
+
+const categoryName = ['Фирменные', 'Мясные', 'Сырные', 'Диетические'];
+
 const sortItems = [
   { name: 'популярности', type: 'popular' },
   { name: 'цене', type: 'price' },
@@ -12,35 +15,47 @@ const sortItems = [
 ];
 
 function Home() {
-const dispatch = useDispatch();
+
+  const dispatch = useDispatch();
   const items = useSelector(
-    ({pizzas}) => pizzas.items);
+    ({ pizzas }) => pizzas.items);
+    const isLoaded = useSelector(
+      ({ pizzas }) => pizzas.isLoaded);
   
+ 
 
-    const onSelectCategory = index => {
-      dispatch(setCategory(index));
-    }
+  React.useEffect(() => {
+
+    (dispatch(fetchPizzas()))
+
+  }, []);
 
 
 
-    return (
-        <div className="container">
-          <div className="content__top">
-            <Categories
-            onClickItem={onSelectCategory}
-             items={categoryName} />
-            <SortPopup items={sortItems}
-          />
-              
-          </div>
-          <h2 className="content__title">Все пиццы</h2>
-          <div className="content__items">
-            {items && items.map((obj) => (
-              <PizzaBlock key={obj.id} {...obj}/>
-            ))}
-          </div>
-        </div>
-    )
+  const onSelectCategory = index => {
+    dispatch(setCategory(index));
+  }
+
+
+
+  return (
+    <div className="container">
+      <div className="content__top">
+        <Categories
+          onClickItem={onSelectCategory}
+          items={categoryName} />
+        <SortPopup items={sortItems}
+        />
+
+      </div>
+      <h2 className="content__title">Все пиццы</h2>
+      <div className="content__items">
+        {isLoaded 
+        ? items.map((obj) => ( <PizzaBlock key={obj.id} isLoading={true} {...obj} /> )) 
+        : Array(12).fill(<PizzaLoadingBlock/>) }
+      </div>
+    </div>
+  )
 }
 
 export default Home
